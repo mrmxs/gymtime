@@ -72,3 +72,31 @@ INSERT INTO roles (name) VALUES
   ('admin'),
   ('content_manager'),
   ('trainer');
+  
+  
+/**
+ * Таблица 'actions'
+ * список возможных операций
+ */
+
+DROP TABLE IF EXISTS actions;
+
+CREATE TABLE actions (
+  id SERIAL PRIMARY KEY,       -- идентификатор операций                                     
+  name varchar(50) NOT NULL    -- название операции
+);
+
+-- COPY gyms FROM 'actions.txt';
+INSERT INTO actions (name) VALUES
+  ('add_classes'),
+  ('change_classes'),
+  ('add_user'),
+  ('change_user'),
+  ('view_user'),
+  ('add_news'),
+  ('add_role'),
+  ('change_role'),
+  ('delete_role'),
+  ('add_action'),
+  ('change_action'),
+  ('delete_action');
