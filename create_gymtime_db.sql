@@ -53,3 +53,22 @@ INSERT INTO users (birthday, e_mail, name, sex) VALUES
   ('1981-10-19', 'xjuvyeziex@rin.ru', 'Полунина Лидия', 'F'),
   ('1978-03-19', 'fjihyexio@email.ru', 'Контеенко Василий', 'M'),
   ('1984-10-15', 'shjiqu@land.ru', 'Наумова Кристина', 'F');
+
+
+/**
+ * Таблица 'roles'
+ * роли
+ */
+
+DROP TABLE IF EXISTS roles;
+
+CREATE TABLE roles (
+  id SERIAL PRIMARY KEY,       -- идентификатор роли                                      
+  name varchar(50) NOT NULL    -- название роли
+);
+
+-- COPY gyms FROM 'roles.txt';
+INSERT INTO roles (name) VALUES
+  ('admin'),
+  ('content_manager'),
+  ('trainer');
