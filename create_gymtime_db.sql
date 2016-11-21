@@ -20,6 +20,8 @@ INSERT INTO gyms (name, about) VALUES
   ('Аура_Фитнес-клуб_Кострома', 'https://vk.com/aurakostroma'),
   ('Фитнес клуб "АПЕЛЬСИН" Кострома', 'https://vk.com/fc.apelsin');
   
+SELECT * FROM gyms;
+  
   
 /**
  * Таблица 'users'
@@ -53,6 +55,8 @@ INSERT INTO users (birthday, e_mail, name, sex) VALUES
   ('1981-10-19', 'xjuvyeziex@rin.ru', 'Полунина Лидия', 'F'),
   ('1978-03-19', 'fjihyexio@email.ru', 'Контеенко Василий', 'M'),
   ('1984-10-15', 'shjiqu@land.ru', 'Наумова Кристина', 'F');
+  
+SELECT * FROM users;
 
 
 /**
@@ -72,6 +76,8 @@ INSERT INTO roles (name) VALUES
   ('admin'),
   ('content_manager'),
   ('trainer');
+  
+SELECT * FROM roles;
   
   
 /**
@@ -100,3 +106,5 @@ INSERT INTO actions (name) VALUES
   ('add_action'),
   ('change_action'),
   ('delete_action');
+  
+SELECT * FROM actions;
