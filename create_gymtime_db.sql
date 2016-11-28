@@ -67,17 +67,37 @@ SELECT * FROM users;
 DROP TABLE IF EXISTS roles;
 
 CREATE TABLE roles (
-  id SERIAL PRIMARY KEY,       -- идентификатор роли                                      
-  name varchar(50) NOT NULL    -- название роли
+  id varchar(50) PRIMARY KEY UNIQUE NOT NULL    -- идентификатор роли - уникальное название
 );
 
 -- COPY gyms FROM 'roles.txt';
-INSERT INTO roles (name) VALUES
+INSERT INTO roles (id) VALUES
   ('admin'),
   ('content_manager'),
   ('trainer');
   
 SELECT * FROM roles;
+
+
+/**
+ * Таблица 'users_roles'
+ * роли, назначенные пользователям
+ */
+
+DROP TABLE IF EXISTS users_roles;
+
+CREATE TABLE users_roles (
+  user_id integer REFERENCES users,  -- идентификатор пользователя                                     
+  role_id varchar(50) REFERENCES roles   -- идентификатор роли
+);
+
+-- COPY gyms FROM 'actions.txt';
+INSERT INTO users_roles (user_id, role_id) VALUES
+  (1,'admin'),
+  (2,'content_manager'),
+  (3,'trainer'); 
+
+SELECT * FROM users_roles;
   
   
 /**
@@ -88,12 +108,11 @@ SELECT * FROM roles;
 DROP TABLE IF EXISTS actions;
 
 CREATE TABLE actions (
-  id SERIAL PRIMARY KEY,       -- идентификатор операций                                     
-  name varchar(50) NOT NULL    -- название операции
+  id varchar(50) PRIMARY KEY UNIQUE NOT NULL    -- идентификатор операций - уникальное название
 );
 
 -- COPY gyms FROM 'actions.txt';
-INSERT INTO actions (name) VALUES
+INSERT INTO actions (id) VALUES
   ('add_classes'),
   ('change_classes'),
   ('add_user'),
@@ -108,3 +127,33 @@ INSERT INTO actions (name) VALUES
   ('delete_action');
   
 SELECT * FROM actions;
+
+
+/**
+ * Таблица 'actions_roles'
+ * действия, доступные роли
+ */
+
+DROP TABLE IF EXISTS actions_roles;
+
+CREATE TABLE actions_roles (
+  action_id varchar(50) REFERENCES actions,  -- идентификатор действия                                    
+  role_id varchar(50) REFERENCES roles       -- идентификатор роли
+);
+
+-- COPY gyms FROM 'actions.txt';
+INSERT INTO actions_roles (role_id, action_id) VALUES
+  ('trainer', 'add_classes'),
+  ('trainer', 'change_classes'),
+  ('admin', 'add_user'),
+  ('admin', 'change_user'),
+  ('admin', 'view_user'),
+  ('content_manager', 'add_news'),
+  ('content_manager', 'add_role'),
+  ('content_manager', 'change_role'),
+  ('content_manager', 'delete_role'),
+  ('admin', 'add_action'),
+  ('admin', 'change_action'),
+  ('admin', 'delete_action');
+  
+SELECT * FROM actions_roles;
