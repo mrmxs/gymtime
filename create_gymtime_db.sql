@@ -1,5 +1,17 @@
 -- Cоздание базы данных 'gymtime' --
 
+/*
+ * gyms
+ * news
+ * classes
+ * events
+ * users
+ * users_roles
+ * roles
+ * actions
+ * actions_roles
+ */
+
 /**
  * Таблица 'gyms'
  * спортзалы
@@ -168,6 +180,25 @@ INSERT INTO users (birthday, e_mail, name, sex) VALUES
   ('1984-10-15', 'shjiqu@land.ru', 'Наумова Кристина', 'F');
   
 SELECT * FROM users;
+
+
+/**
+ * Таблица 'users_registered_on_classes'
+ * пользователи, зарегистрированные на занятии
+ */
+
+DROP TABLE IF EXISTS users_registered_on_classes;
+
+CREATE TABLE users_registered_on_classes (
+  user_id integer REFERENCES users,     -- идентификатор пользователя                                     
+  class_id integer REFERENCES classes   -- идентификатор класса
+);
+
+-- COPY gyms FROM 'actions.txt';
+INSERT INTO users_registered_on_classes (user_id, class_id) VALUES
+  (1,1), (2,2), (3,3), (4,4), (5,1), (6,2); 
+
+SELECT * FROM users_registered_on_classes;
 
 
 /**
