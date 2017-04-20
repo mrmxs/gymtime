@@ -31,10 +31,10 @@ class GClassController extends Controller
 //            'searchModel' => $searchModel,
 //            'dataProvider' => $dataProvider,
 //        ]);
-        $query = Event::find()->where(['type' => 'class',]);
-        if ($gym !== null) {
-            $query = $query->where(['gym_id' => $gym]);
-        }
+        $query = Event::find()->filterWhere([
+            'type' => 'class',
+            'gym_id' => $gym,
+        ]);
 
         $pagination = new Pagination([
             'defaultPageSize' => 3,

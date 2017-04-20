@@ -6,6 +6,7 @@ use Yii;
 use common\models\Event;
 use common\models\EventSearch;
 use yii\data\Pagination;
+use yii\db\Query;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -24,11 +25,10 @@ class EventsController extends Controller
      */
     public function actionIndex($gym = null)
     {
-        $query = Event::find()->where(['type' => 'event',]);
-        if ($gym !== null) {
-            $query = $query->where(['gym_id' => $gym]);
-        }
-
+        $query = Event::find()->filterWhere([
+            'type' => 'event',
+            'gym_id' => $gym,
+        ]);
 
         $pagination = new Pagination([
             'defaultPageSize' => 3,
