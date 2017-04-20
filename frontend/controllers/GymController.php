@@ -11,7 +11,7 @@ class GymController extends Controller
 {
 
     /**
-     * Displays gym page.
+     * Displays list of gyms.
      *
      * @return mixed
      */
@@ -32,6 +32,8 @@ class GymController extends Controller
      */
     public function actionView($id)
     {
+        $this->layout = 'gym';
+
         return $this->render('view', [
             'gym' => $this->findModel($id),
         ]);

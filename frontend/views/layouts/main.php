@@ -37,44 +37,24 @@ AppAsset::register($this);
         ],
     ]);
 
-    echo GymsDropdown::widget();
-//
-//    $leftMenuItems = [
-//        ['label' => Yii::t('site', 'Gyms'), 'items' => [
-//            ['label' => Yii::t('site', 'Gym1'), 'url' => ['/gym/view', 'id' => '1']],
-//            ['label' => Yii::t('site', 'Gym2'), 'url' => ['/gym/view', 'id' => '2']],
-//            ['label' => Yii::t('site', 'Gym3'), 'url' => ['/gym/view', 'id' => '3']],
-//            ['label' => Yii::t('site', 'Gym4'), 'url' => ['/gym/view', 'id' => '4']],
-//        ]],
-//    ];
-//    echo Nav::widget([
-//        'options' => ['class' => 'navbar-nav navbar-left'],
-//        'items'   => $leftMenuItems,
-//    ]);
-
     $menuItems = [
         //['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => Yii::t('site', 'News'), 'url' => ['/news/index']],
-        ['label' => Yii::t('site', 'Classes'), 'url' => ['/g-class/index']],// ['/site/classes']],
-        ['label' => Yii::t('site', 'Events'), 'url' => ['/events/index']],// ['/site/classes']],
-        ['label' => Yii::t('site', 'Prices'), 'url' => ['/site/prices']],
-        ['label' => Yii::t('site', 'Team'), 'url' => ['/site/team']],
-        ['label' => Yii::t('site', 'Contact'), 'url' => ['/site/contact']],
-//        ['label' => Yii::t('site', 'About'), 'url' => ['/site/about']],
+        ['label' => Yii::t('site', 'Gyms'), 'url' => ['/gym/index']],
+        ['label' => Yii::t('site', 'About'), 'url' => ['/site/about']],
     ];
-    //    if (Yii::$app->user->isGuest) {
-    //        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-    //        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    //    } else {
-    //        $menuItems[] = '<li>'
-    //            . Html::beginForm(['/site/logout'], 'post')
-    //            . Html::submitButton(
-    //                'Logout (' . Yii::$app->user->identity->username . ')',
-    //                ['class' => 'btn btn-link logout']
-    //            )
-    //            . Html::endForm()
-    //            . '</li>';
-    //    }
+        if (Yii::$app->user->isGuest) {
+            $menuItems[] = ['label' =>  Yii::t('site', 'Login'), 'url' => ['/site/login']];
+            $menuItems[] = ['label' =>  Yii::t('site', 'Signup'), 'url' => ['/site/signup']];
+        } else {
+            $menuItems[] = '<li>'
+                . Html::beginForm(['/site/logout'], 'post')
+                . Html::submitButton(
+                    Yii::t('site', 'Logout') . ' (' . Yii::$app->user->identity->username . ')',
+                    ['class' => 'btn btn-link logout']
+                )
+                . Html::endForm()
+                . '</li>';
+        }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items'   => $menuItems,

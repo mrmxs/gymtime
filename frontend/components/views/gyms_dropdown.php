@@ -9,16 +9,18 @@ use yii\helpers\Html;
 /* @var $gym Gym */
 
 $menuItems = [[
-    'label' => Html::decode($current->name ?? 'not-existing-gym'),
+    'label' => Html::decode($current->name ?: 'not-existing-gym'),
     'items' => [],
 ]];
-
 foreach ($gyms as $gym) {
     $menuItems[0]['items'][] = [
         'label' => Html::decode($gym->name),
         'url'   => ['/gym/view', 'id' => $gym->id],
     ];
 }
+
+//<li role="separator" class="divider"></li>
+//    <li><a href="#">Separated link</a></li>
 
 echo Nav::widget([
     'options' => ['class' => 'navbar-nav navbar-left'],

@@ -4,7 +4,7 @@
 
 use yii\helpers\Html;
 
-$this->title = Yii::t('site', 'Team');
+$this->title = Yii::t('site', 'Instructors');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-team">

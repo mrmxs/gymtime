@@ -3,12 +3,15 @@
 namespace frontend\components;
 
 use common\models\Gym;
+use Yii;
 use yii\base\Widget;
+use yii\web\NotFoundHttpException;
 
 class GymsDropdown extends Widget
 {
     public $gyms;
     public $current;
+    public $currentId;
 
     public function init()
     {
@@ -19,23 +22,20 @@ class GymsDropdown extends Widget
         if ($this->gyms === null) {
             $this->gyms = $query->all();
         }
-        if ($this->current === null) {
-            $this->current = 1;
-        }
-
-        $this->current =$query->where(['id' => $this->current])->one();
+        $this->current = $query
+            ->where(['id' => $this->current !== null ? $this->current : 1])
+            ->one();
     }
-//
-//    public function run()
-//    {
-//        return Html::encode();
-//    }
 
     public function run()
     {
-        return $this->render('gyms_dropdown', [
-            'gyms'    => $this->gyms,
-            'current' => $this->current,
-        ]);
+        if ($this->current !== null) {
+            return $this->render('gyms_dropdown', [
+                'gyms'    => $this->gyms,
+                'current' => $this->current,
+            ]);
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 }

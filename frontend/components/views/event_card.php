@@ -6,12 +6,12 @@ use yii\helpers\Url;
 /* @var $event \common\models\Event */
 
 $eventLink = $event->type === 'class'
-    ? Url::to(['g-class/view', 'id' => $event->id])
+    ? Url::to(['g-class/view', 'gym' => $event->gym_id, 'id' => $event->id])
     : ($event->type === 'event'
-        ? Url::to(['events/view', 'id' => $event->id])
+        ? Url::to(['events/view', 'gym' => $event->gym_id, 'id' => $event->id])
         : 'unknown type');
 
-$gymLink = "";
+$gymLink = Url::to(['gym/view', 'id' => $event->gym_id]);
 
 $imgLink = $event->type === 'class'
     ? 'http://static.time2gym.xyz/event/Gym-700x300.jpg'

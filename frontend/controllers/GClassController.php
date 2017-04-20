@@ -15,12 +15,14 @@ use yii\filters\VerbFilter;
  */
 class GClassController extends Controller
 {
+    public $layout = 'gym';
 
     /**
      * Lists all Event models.
+     * @param integer $gym
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($gym = null)
     {
 //        $searchModel = new EventSearch();
 //        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -30,6 +32,9 @@ class GClassController extends Controller
 //            'dataProvider' => $dataProvider,
 //        ]);
         $query = Event::find()->where(['type' => 'class',]);
+        if ($gym !== null) {
+            $query = $query->where(['gym_id' => $gym]);
+        }
 
         $pagination = new Pagination([
             'defaultPageSize' => 3,
@@ -51,7 +56,7 @@ class GClassController extends Controller
      * Lists all Event models.
      * @return mixed
      */
-    public function actionSchedule()
+    public function actionSchedule($gym = null)
     {
         $searchModel = new EventSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -65,12 +70,13 @@ class GClassController extends Controller
     /**
      * Displays a single Event model.
      * @param integer $id
+     * @param integer $gym
      * @return mixed
      */
-    public function actionView($id)
+    public function actionView($id, $gym = null)
     {
         return $this->render('view', [
-            'class' => $this->findModel($id),
+            'class' => $this->findModel($id, $gym),
         ]);
     }
 
@@ -78,12 +84,17 @@ class GClassController extends Controller
      * Finds the Event model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
+     * @param integer $gymId
      * @return Event the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($id, $gymId = null)
     {
-        if (($model = Event::findOne(['type' => 'class', 'id' => $id,])) !== null) {
+        $model = ($gymId === null)
+            ? Event::findOne(['type' => 'class', 'id' => $id,])
+            : Event::findOne(['type' => 'class', 'id' => $id, 'gym_id' => $gymId,]);
+
+        if ($model !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

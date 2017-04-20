@@ -12,16 +12,21 @@ use yii\web\NotFoundHttpException;
 
 class NewsController extends Controller
 {
-
+    public $layout = 'gym';
 
     /**
      * Displays all news page.
-     *
+     * @param integer $gym
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($gym = null)
     {
+        //TODO если не существует зал - 404
+
         $query = News::find();
+        if ($gym !== null) {
+            $query = $query->where(['gym_id' => $gym]);
+        }
 
         $pagination = new Pagination([
             'defaultPageSize' => 5,
@@ -33,21 +38,21 @@ class NewsController extends Controller
             ->limit($pagination->limit)
             ->all();
 
-        return $this->render('index', [
-            'news'  => $news,
-            'pagination' => $pagination,
-        ]);
+        return $this->render('index', ['news'       => $news,
+                                       'pagination' => $pagination,]);
     }
 
     /**
      * Displays a single News model.
      * @param integer $id
+     * @param integer $gym
      * @return mixed
      */
-    public function actionView($id)
+    public
+    function actionView($id, $gym = null)
     {
         return $this->render('view', [
-            'post' => $this->findModel($id),
+            'post' => $this->findModel($id, $gym),
         ]);
     }
 
@@ -55,12 +60,18 @@ class NewsController extends Controller
      * Finds the News model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
+     * @param integer $gymId
      * @return News the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected
+    function findModel($id, $gymId = null)
     {
-        if (($model = News::findOne($id)) !== null) {
+        $model = ($gymId === null)
+            ? News::findOne($id)
+            : News::findOne(['id' => $id, 'gym_id' => $gymId,]);
+
+        if ($model !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

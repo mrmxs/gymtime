@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 $eventLink = Url::to(['g-class/view', 'id' => $class->id]);
-$gymLink = "";
+$gymLink = Url::to(['gym/view', 'id' => $class->gym_id]);;
 $imgLink = "http://static.time2gym.xyz/event/42725383.jpg"; //"http://placehold.it/750x500";
 $badge = $class->type === 'class' ? 'label-success'
     : ($class->type === 'event' ? 'label-info'

@@ -219,9 +219,9 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionTeam()
+    public function actionInstructors()
     {
-        return $this->render('team');
+        return $this->render('instructors');
     }
 
     /**

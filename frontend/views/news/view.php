@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('site', 'News'), 'url' => ['
 $this->params['breadcrumbs'][] = Html::encode($this->title);
 
 $postLink = Url::to(['news/view', 'id' => $post->id]);//"/index.php?r=news%2Fview&id={}";
-$gymLink = "";
+$gymLink = Url::to(['gym/view', 'id' => $post->gym_id]);;
 $imgLink = "http://static.time2gym.xyz/post/surf41.jpg"; //"http://placehold.it/900x300";
 $postedDate = "Опубликовано: {$post->publication}";// "Posted on August 28, 2013 at 10:00 PM";
 ?>
