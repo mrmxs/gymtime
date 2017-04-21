@@ -54,18 +54,18 @@ if (Yii::$app->controller->id === 'gym' &&
     $menuItems = [
         ['label' => Yii::t('site', 'Gym'),
          'url'   => ['/gym/view', 'id' => $requestGym]],
-        ['label' => Yii::t('site', 'News'),
-         'url'   => ['/news/index', 'gym' => $requestGym]],
+        ['label' => Yii::t('site', 'Instructors'),
+         'url'   => ['/site/instructors', 'gym' => $requestGym]],
         ['label' => Yii::t('site', 'Classes'),
          'url'   => ['/g-class/index', 'gym' => $requestGym]],
         ['label' => Yii::t('site', 'Events'),
          'url'   => ['/events/index', 'gym' => $requestGym]],
         ['label' => Yii::t('site', 'Prices'),
          'url'   => ['/site/prices', 'gym' => $requestGym]],
-        ['label' => Yii::t('site', 'Instructors'),
-         'url'   => ['/site/instructors', 'gym' => $requestGym]],
-        ['label' => Yii::t('site', 'Contact'),
-         'url'   => ['/site/contact', 'gym' => $requestGym]],
+        ['label' => Yii::t('site', 'News'),
+         'url'   => ['/news/index', 'gym' => $requestGym]],
+//        ['label' => Yii::t('site', 'Contact'),
+//         'url'   => ['/site/contact', 'gym' => $requestGym]],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => Yii::t('site', 'Login'), 'url' => ['/site/login']];

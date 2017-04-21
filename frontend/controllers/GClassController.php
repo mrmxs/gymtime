@@ -49,15 +49,18 @@ class GClassController extends Controller
         return $this->render('index', [
             'classes'    => $classes,
             'pagination' => $pagination,
+            'needSpecifyGym' => ($gym === null),
         ]);
     }
 
     /**
      * Lists all Event models.
+     * @param integer $gym
      * @return mixed
      */
     public function actionSchedule($gym = null)
     {
+        //TODO search by $gym
         $searchModel = new EventSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
